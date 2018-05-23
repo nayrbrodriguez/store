@@ -1,0 +1,1 @@
+<script src="{{ asset ("../bower_components/adminlte/plugins/jQuery/jQuery-2.2.3.min.js") }}"></script>
