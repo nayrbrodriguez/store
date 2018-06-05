@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,7 +25,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.banner.vgen_info');
+       
+        $products   =   DB::table('tb_product')->where('admin_id', Auth::user()->id)->get();
+
+        $barGraph   =   DB::table('tb_order')->get();
+        // $distinct   =   distinct($barGraph);
+        // 
+        $year = $barGraph->created_at->year;
+ 
+        return $barGraph;
+        // return view('admin.pages.banner.vgen_info',compact('products','barGraph'));
     }
 }
  

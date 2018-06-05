@@ -13,7 +13,7 @@
     <div class="col-md-6">
       <div class="panel-group">
     <div class="panel panel-default">
-<div class="pull-right">
+                <div class="pull-right">
                   <a href="{{url('/add_customer')}}" class="btn btn-primary ">Add Customer</a>
                 </div>
       
@@ -37,13 +37,7 @@
                       <tr>
                         {{-- <td>{!!$gen->title!!}</td> --}}
             <td><a href="{{url('view_customer', array($gen->id))}}?page={{$data->currentpage()}}" >{!!$gen->name !!}</a></td>
-            {{-- <td>
-              <a href="{{url('view_course_offering', array($gen->id))}}" class="btn btn-primary">View</a>
-              <a href="{{url('edit_course_offering',array($gen->id))}}" class="btn btn-info">Edit</a>
-              <a href="{{url('delete_course_offering',array($gen->id))}}" class="btn btn-danger " type="button">Delete</a>
-              <a onclick="return confirm('Are you sure you want to delete {!!$gen->title!!}?')" href="{{url('delete_course_offering',array($gen->id))}}" class="btn btn-danger ">Delete</a>
-              
-            </td> --}}
+           
                       </tr>
                     @endforeach
                     </tbody>

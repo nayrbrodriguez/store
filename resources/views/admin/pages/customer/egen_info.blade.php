@@ -18,7 +18,11 @@
                 </div>
       <div class="panel-heading"><h3>Customer</h3>
       <div class="form-group">
-          <input class="form-control" type="text" id="search"  name="search" placeholder="Search"></input>
+        <form action="{{url('search_customer')}}" method="post">
+          <input class="form-control" style="width:50%;" type="text" id="search"  name="name" placeholder="Search" />
+          <button class="btn btn-primary" type="submit" name="send">Submit</button>
+        </form>
+          
         </div>
       </div>
       <div class="panel-body ">
@@ -43,7 +47,7 @@
                     </tbody>
                     
                   </table>
-                  {{$data->links()}}
+                  {{-- <div disabled>{{$data->links()}}</div> --}}
 
       </div>
     </div>

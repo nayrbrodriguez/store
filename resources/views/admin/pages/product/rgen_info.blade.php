@@ -88,7 +88,7 @@
       </tr></td>
       <br>
       <tr><td>
-      <p><h5> Date Added: </h5> </td><td>{!!$title->date_register or "NOT YET AVAILABLE"!!}
+      <p><h5> Date Added: </h5> </td><td>{!!date('M d, Y', strtotime($title->date_register))!!}
       </tr></td>
       </table>
       </div>

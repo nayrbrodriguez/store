@@ -32,9 +32,10 @@
                       <tr>
                         {{-- <td>{!!$gen->title!!}</td> --}}
             @if($gen->id == $title->id)
-            <td class="table-selected"><a style="color: white;" href="{{url('view_customer', array($gen->id))}}?page={{$data->currentPage()}}" >{!!$gen->name!!}</a></td>
+            
+            <td class="table-selected"><a style="color: white;" href="{{url('view_customer', array($gen->id))}}?page={{$data->currentPage()}}" data-toggle="modal" data-target="#myModal">{!!$gen->name!!}</a></td>
             @else
-            <td><a href="{{url('view_customer', array($gen->id))}}?page={{$data->currentPage()}}" >{!!$gen->name!!}</a></td>
+            <td><a href="{{url('view_customer', array($gen->id))}}?page={{$data->currentPage()}}" data-toggle="modal" data-target="#myModal">{!!$gen->name!!}</a></td>
             @endif
             {{-- <td>
               <a href="{{url('view_course_offering', array($gen->id))}}" class="btn btn-primary">View</a>
@@ -56,7 +57,7 @@
   </div>
     </div>
     <div class="col-md-6">
-
+      <div type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</div>
     <div class="panel-group">
     <div class="panel panel-default">
     
@@ -72,26 +73,49 @@
       <div class="panel-body">
       <h3>{!!$title->name or "Customer Name" !!}</h3> 
       <hr>
-      <table name="tab" class="table-striped table-bordered">
-      <tr><td>
-      <p><h5> Status: </h5> </td><td>{!!$title->status or "NOT YET AVAILABLE"!!}
-      </tr></td>
-      <br>
-      <tr><td>
-      <p><h5> Gender: </h5> </td><td>{!!$title->gender or "NOT YET AVAILABLE"!!}
-      </tr></td>
-      <br>
-      <tr><td>
-      <p><h5> Address: </h5> </td><td>{!!$title->address or "NOT YET AVAILABLE"!!}
-      </tr></td>
-      <br>
-      <tr><td>
-      <p><h5> Contact: </h5> </td><td>{!!$title->contact or "NOT YET AVAILABLE"!!}
-      </tr></td>
-      </table>
+
+      <div class="table">
+        <div class="tr">
+          <div class="td thead"><b>Status:</b></div>
+          <div class="td">{!!$title->status or "NOT YET AVAILABLE"!!}</div>
+        </div>
+        <div class="tr">
+          <div class="td thead"><b>Gender:</b></div>
+          <div class="td">{!!$title->gender or "NOT YET AVAILABLE"!!}</div>
+        </div>
+        <div class="tr">
+          <div class="td thead"><b>Address:</b></div>
+          <div class="td">{!!$title->address or "NOT YET AVAILABLE"!!}</div>
+        </div>
+        <div class="tr">
+          <div class="td thead"><b>Contact:</b></div>
+          <div class="td">{!!$title->contact or "NOT YET AVAILABLE"!!}</div>
+        </div>
+      </div>
+
       </div>
     </div>
    
+  </div>
+    {{-- MODAL --}}
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
   </div>
        
         

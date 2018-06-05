@@ -85,6 +85,7 @@
           
           <form class="tr" action="{{ url('update_order') }}" method="post">
             
+            <div class="td_edit" hidden><input type="hidden" name="currentPage" class="form-control" value="{{$customers->currentPage()}}" /></div>
             <div class="td_edit" hidden><input type="hidden" name="cust_id" class="form-control" value="{!!$customer->id!!}" />{!!$customer->id!!}</div>
             <div class="td_edit" hidden><input type="hidden" name="id" class="form-control" value="{!!$orderID->id!!}" />{!!$orderID->id!!}</div>
 
@@ -92,7 +93,9 @@
               <select name="prod_id" id="product" class="form-control" "> 
                 
                   @foreach($products as $prod)
+                  @if($prod->admin_id == Auth::user()->id)
                   <option value="{!!$prod->id!!}"  {{ $edit->prod_id == $prod->id ? 'selected': ''}}><b>{!!$prod->prod_name!!}</b></option>
+                  @endif
                   @endforeach
               </select>
             </div>
@@ -161,11 +164,16 @@
       <div class="td">
           <select name="prod_id" id="product" class="form-control">
             <option value="" selected="" disabled hidden>Select Product</option>
+               
                 @foreach($products as $prod)
+                @if($prod->admin_id == Auth::user()->id)
                 <option value="{!!$prod->id!!}" {{old('id') == $prod->id ? 'selected' : ''}}><b>{!!$prod->prod_name!!}</b> (Sale Price: {!!$prod->price_for_sale!!})</option>
+                @endif
                 @endforeach
+                
             </select>
       </div>
+      <div class="td" hidden=""><input type="hidden" name="admin_id" class="form-control" value="{{Auth::user()->id}}"></div>
       <div class="td" hidden><input type="hidden" name="price" class="form-control" value="{!!$prod->price_for_sale!!}"></div>
       <div class="td" hidden><input type="hidden" name="cust_id" class="form-control" value="{!!$customer->id!!}" />{!!$customer->id!!}</div>
       <div class="td"><input type="number" name="qty" class="form-control" value="{{old('qty')}}" /></div>
@@ -186,6 +194,6 @@
     </div>
   </div>
 </div>
- @include('admin.search.about')
+ {{-- @include('admin.search.about') --}}
  {{-- <script src="{{ asset("../js/editsave.js")}}" type="text/javascript" ></script> --}}
 @endsection

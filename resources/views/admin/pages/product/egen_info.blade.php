@@ -82,7 +82,7 @@
             <label for="price_for_credit">Credit Price</label>
             <input type="text" name="price_for_credit" class="form-control" value="{!!$title->price_for_credit!!}">
           </div>
-          <div class="form-group">
+          {{-- <div class="form-group">
                     <label for="status">Status</label>
                     <select name="status" class="form-control" value="{!!$title->status!!}">
                       <option value="{!!$title->status!!}" selected disabled hidden>
@@ -97,7 +97,7 @@
                       <option value="out">Out of Stock</option>
                       <option value="has">Has Stock</option>
                     </select>
-          </div>
+          </div> --}}
           
           
           <div class="form-group">

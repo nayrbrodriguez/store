@@ -48,10 +48,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
 
     <!-- Header -->
-    @include('admin.partial.header')
+    {{-- @include('admin.partial.header') --}}
 
     <!-- Sidebar -->
-    @include('admin.partial.sidebar')
+    {{-- @include('admin.partial.sidebar') --}}
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

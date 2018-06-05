@@ -19,6 +19,10 @@
 						<input type="text" name="name" class="form-control" value="{{old('name')}}">
 					</div>
 					<div class="form-group">
+
+						<input type="hidden" name="admin_id" class="form-control" value="{{Auth::user()->id}}">
+					</div>
+					<div class="form-group">
 						<label for="address">Address</label>
 						<input type="text" name="address" class="form-control" value="{{old('address')}}">
 					</div>

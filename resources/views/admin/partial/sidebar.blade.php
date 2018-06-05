@@ -11,7 +11,7 @@
 
             {{-- HOME --}}
             <li class="{{ Request::is('home') ? "active" : ""}}">
-                <a href="{{ route('home')}}"><i class="fa fa-home"></i> <span>Banner</span></a>
+                <a href="{{ route('home')}}"><i class="fa fa-home"></i> <span>Dashboard</span></a>
             </li>
 
 
@@ -19,7 +19,7 @@
 
             {{-- Customer --}}
             <li class="{{ Request::is('customer') ? "active" : "" }}">
-                <a href="{{route('cust')}}"><i class="fa fa-link"></i> <span>Customers</span> </a>
+                <a href="{{url('/customer')}}"><i class="fa fa-link"></i> <span>Customers</span> </a>
             </li>
 
             {{-- News --}}
@@ -34,8 +34,8 @@
             </li>
 
             {{-- Course Offering --}}
-            <li class="{{ Request::is('admin/course_offering', 'admin/add_course_offering','admin/update_course_offering','admin/view_course_offering') ? "active" : "" }}">
-                <a href="{{url('admin/course_offering')}}"><i class="fa fa-list"></i> <span>Course Offering</span></a>
+            <li class="{{ Request::is('collections', 'admin/add_course_offering','admin/update_course_offering','admin/view_course_offering') ? "active" : "" }}">
+                <a href="{{url('/collections')}}"><i class="fa fa-list"></i> <span>Collections</span></a>
             </li>
             
             {{-- Scholarship --}}

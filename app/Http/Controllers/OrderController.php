@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 
 
 use Illuminate\Validation\Validator;
-// 
+
 use User;
 use DB;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -19,7 +20,7 @@ class OrderController extends Controller
 
     public function index()
     {
-    	$customers 	= DB::table('tb_customer')->paginate(10);
+    	$customers 	= DB::table('tb_customer')->where('admin_id', Auth::user()->id)->paginate(10);
 
 
     	return view('admin.pages.order.vgen_info',compact('customers'));
@@ -29,12 +30,14 @@ class OrderController extends Controller
 
     public function orders($id)
     {
-        $customers  = DB::table('tb_customer')->paginate(10);
+        $customers  = DB::table('tb_customer')->where('admin_id', Auth::user()->id )->paginate(10);
     	
-
+ 
     	$customer	= DB::table('tb_customer')->where('id', $id)->first();
 
-    	$products 	= DB::table('tb_product')->where('prod_qty', '<>','0' )->get();
+    	$products 	= DB::table('tb_product')->where('prod_qty', '<>','0' )->where('admin_id', Auth::user()->id)->get();
+
+
 
     	$orders 	= DB::table('tb_order')
     					->join('tb_product', 'tb_order.prod_id','=','tb_product.id')
@@ -53,7 +56,14 @@ class OrderController extends Controller
         $currentPage    = $customers->currentPage();
         $page           = ceil( $customer->id / count($totalRows) );
 
-    	return view('admin.pages.order.rgen_info', compact('currentPage','page','customers','customer', 'orders', 'total', 'products'));
+
+        if ($customer->admin_id == Auth::user()->id) {
+            return view('admin.pages.order.rgen_info', compact('customers','customer', 'orders', 'total', 'products'));
+        } else {
+            return view('errors.404');
+        }
+        
+    	
 
     }
 
@@ -63,7 +73,7 @@ class OrderController extends Controller
     public function insert(OrderRequests $request){
     	$productID	= $request->prod_id;
     	$customerID	= $request->cust_id;
-        $customers  = DB::table('tb_customer')->paginate(10);
+        $customers  = DB::table('tb_customer')->where('admin_id',Auth::user()->id)->paginate(10);
     	$total 		= DB::table('tb_product')->where('id', $productID)->first();
     	$mess 		= DB::table('tb_customer')->where('id', $customerID)->first();
         
@@ -71,7 +81,7 @@ class OrderController extends Controller
             'prod_id'=>$request['prod_id'],
             'cust_id'=>$request['cust_id'],
             'qty'=>$request['qty'],
-            'price'=>$request['price'],
+            'price'=>$total->price_for_sale,
             'total_amt'=>$total->price_for_sale * $request['qty']
             
             ]);
@@ -89,7 +99,7 @@ class OrderController extends Controller
     	$orderID	= DB::table('tb_order')->where('id', $ord_id)->first(); 
     	
     	//lists of all customers
-		$customers 	= DB::table('tb_customer')->paginate(10); 
+		$customers 	= DB::table('tb_customer')->where('admin_id',Auth::user()->id)->paginate(10); 
 
 		//input for creating orders for customer ID
     	$customer	= DB::table('tb_customer')->where('id', $id)->first(); 
@@ -118,9 +128,13 @@ class OrderController extends Controller
     					->where('status','pending')
     					->sum('total_amt');  
 
+        if ($customer->admin_id == Auth::user()->id){
+                return view('admin.pages.order.egen_info',compact('customers','customer', 'orders', 'total', 'products','orderID', 'edit'));
+        } else {
+            return view('errors.404');
+        }
         
 
-    	return view('admin.pages.order.egen_info',compact('customers','customer', 'orders', 'total', 'products','orderID', 'edit'));
 
 
 
@@ -133,6 +147,7 @@ class OrderController extends Controller
 
         //getting product name 
         $product = DB::table('tb_product')->where('id',$request->prod_id)->first();
+
 
     	$this->validate($request,[
                 'prod_id'   =>  'required||max:255',
@@ -150,7 +165,7 @@ class OrderController extends Controller
                 
             ]);
         
-        return redirect('/orders/'.$request->cust_id)->with('message','You have successfully update the '.$product->prod_name.' to '.$customer->name);
+        return redirect('/orders/'.$request->cust_id.'?page='.$request['currentPage'])->with('message','You have successfully update the '.$product->prod_name.' to '.$customer->name);
     }
 
     public function destroy($id, $ord_id, $currentPage){

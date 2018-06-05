@@ -6,11 +6,15 @@ use App;
 use Illuminate\Http\Request;
 use User;
 use DB;
+use Auth;
 
 class ProductController extends Controller
 {
     public function index(){
-        return view('admin.pages.product.agen_info');
+        $length = 6;
+        $randomString = substr(str_shuffle("abcdef0123456"), 0, $length);
+
+        return view('admin.pages.product.agen_info',compact('randomString'));
     } 
 
     // public function backup(){
@@ -19,6 +23,7 @@ class ProductController extends Controller
 
     public function insert(Request $request){
         $this->validate($request,[
+
         'prod_name'=>'required||max:255',
         'prod_qty'=>'required||max:255',
         'orig_price'=>'required||max:255',
@@ -30,7 +35,9 @@ class ProductController extends Controller
         ]);
         
         DB::table('tb_product')->insert([
+            'color'=>$request['color'],
             'prod_name'=>$request['prod_name'],
+            'admin_id'=>$request['admin_id'],
             'prod_qty'=>$request['prod_qty'],
             'orig_price'=>$request['orig_price'],
             'price_for_sale'=>$request['price_for_sale'],
@@ -67,7 +74,7 @@ class ProductController extends Controller
     }
 
     public function view(){
-         $data = DB::table('tb_product')->paginate(10);
+         $data = DB::table('tb_product')->where('admin_id', Auth::user()->id)->paginate(10);
         // $title=DB::table('tb_customer')->where('id',$id)->first();
         return view('admin.pages.product.vgen_info', compact('data'));
         // return $data;
@@ -76,20 +83,42 @@ class ProductController extends Controller
     }
 
     public function read($id){
-        $data = DB::table('tb_product')->paginate(10);
+        $data = DB::table('tb_product')->where('admin_id', Auth::user()->id)->paginate(10);
         $title=DB::table('tb_product')->where('id',$id)->first();
-        return view('admin.pages.product.rgen_info', compact('data','title'));
+
+        if ($title->admin_id == Auth::user()->id) {
+
+            return view('admin.pages.product.rgen_info', compact('data','title'));
+
+        } else {
+
+            return view('errors.404');
+
+        }
+        
+
     }
 
     public function delete($id){
         DB::table('tb_product')->where('id',$id)->delete();
-        return redirect('product')->with('message', 'Successfully delete!');
+        return redirect('product')->with('message', 'Successfully deleted!');
     }
 
     public function edit($id){
-        $data = DB::table('tb_product')->paginate(10);
+        $data = DB::table('tb_product')->where('admin_id', Auth::user()->id)->paginate(10);
         $title=DB::table('tb_product')->where('id',$id)->first();
-        return view('admin.pages.product.egen_info', compact('data','title'));
+
+        if ($title->admin_id == Auth::user()->id) {
+
+            return view('admin.pages.product.egen_info', compact('data','title'));
+
+        } else {
+
+            return view('errors.404');
+
+        }
+        
+
     }
 
     public function update(Request $request){
@@ -98,7 +127,7 @@ class ProductController extends Controller
         'prod_qty'=>'required||max:255',
         'orig_price'=>'required||max:255',
         'price_for_sale'=>'required||max:255',
-        // 'status'=>'required||max:255',
+
         'price_for_credit'=>'required||max:255'
         ]);
 
@@ -112,7 +141,7 @@ class ProductController extends Controller
                 
             ]);
         
-        $data = DB::table('tb_product')->paginate(10);
+        $data = DB::table('tb_product')->where('admin_id', Auth::user()->id)->paginate(10);
         $title = DB::table('tb_product')->where('id',$request['id'])->first();
 
         // Session::flash('message', 'This is a message!');

@@ -28,7 +28,7 @@ class OrderRequests extends FormRequest
             'prod_id'=>'required||max:255',
             'cust_id'=>'required||max:255',
             'qty'=>'required',
-            'price'=>'required',
+
         ];
     }
 

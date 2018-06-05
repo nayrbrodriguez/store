@@ -1,4 +1,4 @@
-@extends('user.user_layout')
+@extends('admin.error')
 
 
 
@@ -18,12 +18,7 @@
 		        	<h1>Sorry!</h1>
 		        	<h4>404 page not found</h4>
 		            <p class="p3">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-		        	{{-- <form id="form-search" action="search.php" method="GET" accept-charset="utf-8" class="form-404" >
-		            	<div class="clearfix">
-		                    <input type="text" name="s" onBlur="if(this.value=='') this.value=''" onFocus="if(this.value =='' ) this.value=''" >
-		                    <a href="#" onClick="document.getElementById('form-search').submit()" class="btn btn_ btn-small_">search</a>
-		                </div>
-		            </form> --}}
+		        	<a class="btn btn-primary" href="{{url('/home')}}">Back to home</a>
 				</div>  
 		    </div>  
 		  </div>

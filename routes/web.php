@@ -30,7 +30,7 @@ Route::get('/view_customer/{id}', 'CustomerController@read')->name('vcust');
 Route::get('/edit_customer/{id}', 'CustomerController@edit')->name('ecust');
 Route::post('/update_customer/{currentPage}', 'CustomerController@update')->name('ucust');
 Route::get('/delete_customer/{id}', 'CustomerController@delete')->name('dcust');
-Route::get('/search_customer','CustomerController@search')->name('scust');
+Route::post('/search_customer','CustomerController@search')->name('scust');
 
 //Product Routes
 Route::get('/product', 'ProductController@view')->name('prod');
@@ -52,6 +52,10 @@ Route::get('/edit_order/{id}/{ord_id}', 'OrderController@edit')->name('eorder');
 Route::get('/change_status/{id}/{ord_id}/{currentPage}', 'OrderController@changeStatus')->name('eorder');
 Route::post('/update_order', 'OrderController@update')->name('uorder');
 Route::get('/delete_order/{id}/{ord_id}/{currentPage}', 'OrderController@destroy')->name('dorder');
+
+//Collections Route
+Route::get('/collections/pending','CollectionController@pending');
+Route::get('/collections/collection','CollectionController@collected');
 
 });
 

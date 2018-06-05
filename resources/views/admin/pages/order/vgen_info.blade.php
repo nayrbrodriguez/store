@@ -91,6 +91,6 @@
     </div>
   </div>
 </div>
- @include('admin.search.about')
+ {{-- @include('admin.search.about') --}}
 
 @endsection

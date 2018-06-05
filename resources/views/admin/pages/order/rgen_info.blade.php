@@ -32,10 +32,10 @@
                       <tr>
 
             @if($gen->id == $customer->id)
-              <td class="table-selected"><a href="{{url('/orders',array($gen->id))}}?page={{$currentPage}}" style="color: white;">{!!$gen->name!!}</a></td>
+              <td class="table-selected"><a href="{{url('/orders',array($gen->id))}}?page={{$customers->currentPage()}}" style="color: white;">{!!$gen->name!!}</a></td>
             @else
               {{-- <td><a href="{{url('/orders', array($gen->id,$customers->currentPage()))}}" >{!!$gen->name!!}</a></td> --}}
-              <td><a href="{{url('/orders',array($gen->id))}}?page={{$currentPage}}" >{!!$gen->name!!}</a></td>
+              <td><a href="{{url('/orders',array($gen->id))}}?page={{$customers->currentPage()}}" >{!!$gen->name!!}</a></td>
             @endif
             
            
@@ -160,12 +160,14 @@
       <div class="td">
           <select name="prod_id" id="product" class="form-control">
             <option value="" selected="" disabled hidden>Select Product</option>
+
                 @foreach($products as $prod)
                 <option value="{!!$prod->id!!}" {{old('id') == $prod->id ? 'selected' : ''}}><b>{!!$prod->prod_name!!}</b> (Sale Price: {!!$prod->price_for_sale!!})</option>
                 @endforeach
+
             </select>
       </div>
-      <div class="td" hidden><input type="hidden" name="price" class="form-control" value="{!!$prod->price_for_sale!!}"></div>
+
       <div class="td" hidden><input type="hidden" name="cust_id" class="form-control" value="{!!$customer->id!!}" />{!!$customer->id!!}</div>
       <div class="td"><input type="number" name="qty" class="form-control" value="{{old('qty')}}" /></div>
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -185,6 +187,6 @@
     </div>
   </div>
 </div>
- @include('admin.search.about')
+ {{-- @include('admin.search.about') --}}
  {{-- <script src="{{ asset("../js/editsave.js")}}" type="text/javascript" ></script> --}}
 @endsection
