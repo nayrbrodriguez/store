@@ -28,7 +28,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link href="{{ asset("../bower_components/admin-lte/dist/css/skins/skin-green.min.css")}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset("../css/table.css")}}" rel="stylesheet" type="text/css" />
     
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

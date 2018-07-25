@@ -110,7 +110,7 @@
 @endsection
 
 @section('script')
-    @include('admin.script.graph')
+    {{-- @include('admin.script.graph') --}}
 @endsection
 
 

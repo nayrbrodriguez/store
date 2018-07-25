@@ -1,7 +1,7 @@
 @extends('admin.admin_template')
 
 @section('title')
-  Scholarship Content
+  accounts Content
 @endsection
 
 
@@ -14,11 +14,11 @@
       <div class="panel-group">
     <div class="panel panel-default">
 <div class="pull-right">
-                  <a href="{{url('admin/add_scholarship')}}" class="btn btn-primary ">Add Scholarship offer</a>
+                  <a href="{{url('add_accounts')}}" class="btn btn-primary ">Add account</a>
                 </div>
       
       <div class="panel-heading">
-      <h3>Scholarship</h3>
+      <h3>accounts</h3>
         <div class="form-group">
           <input class="form-control" type="text" id="search"  name="search" placeholder="Search"></input>
         </div>
@@ -27,21 +27,26 @@
          <table id="example1" class="table table-bordered table-striped table-hover">
                     <thead>
                       <tr>
-                        <th>Scholarship list</th>
+                        <th>Accounts list</th>
                         
                         {{-- <th width="15%"><center>Action</center></th> --}}
                       </tr>
                     </thead>
                     <tbody>
-          @foreach($data as $key => $gen)
+          @foreach($accounts as $account)
                       <tr>
-                        {{-- <td>{!!$gen->title!!}</td> --}}
-            <td><a href="{{url('admin/view_scholarship', array($gen->id))}}" >{!!$gen->title!!}</a></td>
+                        {{-- <td>{!!$account->title!!}</td> --}}
+            <td><a href="{{url('/accounts', array($account->id))}}" id="password">
+              {!!decrypt($account->password)!!}
+              <br>
+            </a>
+              
+            </td>
             {{-- <td>
-              <a href="{{url('view_course_offering', array($gen->id))}}" class="btn btn-primary">View</a>
-              <a href="{{url('edit_course_offering',array($gen->id))}}" class="btn btn-info">Edit</a>
-              <a href="{{url('delete_course_offering',array($gen->id))}}" class="btn btn-danger " type="button">Delete</a>
-              <a onclick="return confirm('Are you sure you want to delete {!!$gen->title!!}?')" href="{{url('delete_course_offering',array($gen->id))}}" class="btn btn-danger ">Delete</a>
+              <a href="{{url('view_course_offering', array($account->id))}}" class="btn btn-primary">View</a>
+              <a href="{{url('edit_course_offering',array($account->id))}}" class="btn btn-info">Edit</a>
+              <a href="{{url('delete_course_offering',array($account->id))}}" class="btn btn-danger " type="button">Delete</a>
+              <a onclick="return confirm('Are you sure you want to delete {!!$account->title!!}?')" href="{{url('delete_course_offering',array($account->id))}}" class="btn btn-danger ">Delete</a>
               
             </td> --}}
                       </tr>
@@ -60,7 +65,7 @@
     <div class="panel-group">
     <div class="panel panel-default">
       <div class="panel-heading">
-       {{--  <a href="{{url('edit_scholarship',array($title->id))}}" class="btn btn-info">Edit</a>
+       {{--  <a href="{{url('edit_accounts',array($title->id))}}" class="btn btn-info">Edit</a>
        <a onclick="return confirm('Are you sure you want to delete {!!$title->title!!}?')" href="{{url('delete_course_offering',array($title->id))}}" class="btn btn-danger ">Delete</a> --}}
       </div>
       <div class="panel-heading">{{-- {!!$title->title or "Title" !!}  --}}</div>
@@ -88,5 +93,16 @@
     </div>
   </div>
 </div>
- @include('admin.search.scholarship')
+
+<script>
+  $(document).ready(function(){
+      $("#hide").click(function(){
+          $("#password").hide();
+      });
+      $("#show").click(function(){
+          $("#password").show();
+      });
+  });
+</script>
+ @include('admin.search.accounts')
 @endsection

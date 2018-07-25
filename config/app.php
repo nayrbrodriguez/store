@@ -165,6 +165,12 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+        * Laravel Framework Service Providers...
+        */
+
+        Anouar\Fpdf\FpdfServiceProvider::class,
+
+        /*
          * Package Service Providers...
          */
 
@@ -225,6 +231,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Fpdf' => Anouar\Fpdf\Facades\Fpdf::class,
 
     ],
 

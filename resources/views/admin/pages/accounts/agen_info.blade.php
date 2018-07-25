@@ -1,7 +1,7 @@
 @extends('admin.admin_template')
 
 @section('title')
-	Create Scholarship Offer
+	Create accounts Offer
 @endsection
 
 
@@ -13,7 +13,7 @@
 				<h4>@yield('title')</h4>
 			</div>
 			<div class="panel-body">
-				<form action="{{ url('admin/create_scholarship') }}" method="post">
+				<form action="{{ url('admin/create_accounts') }}" method="post">
 					<div class="form-group">
 						<label for="title">Title</label>
 						<input type="text" name="title" class="form-control" value="{{old('title')}}">
@@ -26,7 +26,7 @@
 					</div>
 					<div class="form-group">
 						<input type="submit" name="send" id="send" value="Publish" class="btn btn-success">
-						<a href="{{url('admin/scholarship')}}" class="btn btn-danger">Back</a>
+						<a href="{{url('admin/accounts')}}" class="btn btn-danger">Back</a>
 						{!! csrf_field() !!}
 
 					</div>

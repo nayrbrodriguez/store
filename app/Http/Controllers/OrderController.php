@@ -52,9 +52,9 @@ class OrderController extends Controller
     					->sum('total_amt');
 
         //getting page of a result
-        $totalRows      = DB::table('tb_customer')->count();
-        $currentPage    = $customers->currentPage();
-        $page           = ceil( $customer->id / count($totalRows) );
+        // $totalRows      = DB::table('tb_customer')->count();
+        // $currentPage    = $customers->currentPage();
+        // $page           = ceil( $customer->id / count($totalRows) );
 
 
         if ($customer->admin_id == Auth::user()->id) {

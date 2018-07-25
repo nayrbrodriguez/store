@@ -22,27 +22,27 @@
                 <a href="{{url('/customer')}}"><i class="fa fa-link"></i> <span>Customers</span> </a>
             </li>
 
-            {{-- News --}}
+            {{-- Products --}}
             <li class="{{ Request::is('product', 'admin/add_news','admin/update_news','admin/view_news/*','admin/edit_news/*') ? "active" : "" }}">
                 <a href="{{url('product')}}"><i class="fa fa-newspaper-o"></i> <span>Products</span></a>
             </li>
 
-            {{-- Admission --}}
+            {{-- Orders --}}
             <li class="{{ Request::is('orders', 'admin/add_admission','admin/update_admission','admin/view_admission/*','admin/edit_admission/*') ? "active" : "" }}">
               <a href="{{ url('/orders') }}"><i class="fa fa-institution"></i> <span>Orders</span></a>
               
             </li>
 
-            {{-- Course Offering --}}
+            {{-- Collections --}}
             <li class="{{ Request::is('collections', 'admin/add_course_offering','admin/update_course_offering','admin/view_course_offering') ? "active" : "" }}">
                 <a href="{{url('/collections')}}"><i class="fa fa-list"></i> <span>Collections</span></a>
             </li>
             
-            {{-- Scholarship --}}
-            <li class="{{ Request::is('admin/scholarship', 'admin/add_scholarship','admin/update_scholarship','admin/view_scholarship/*','admin/edit_scholarship/*') ? "active" : "" }}">
-                <a href="{{url('admin/scholarship')}}"><i class="fa fa-th-list"></i> <span>Scholarships</span></a>
+            {{-- Accounts --}}
+            <li class="{{ Request::is('accounts', 'admin/add_scholarship','admin/update_scholarship','admin/view_scholarship/*','admin/edit_scholarship/*') ? "active" : "" }}">
+                <a href="{{url('/accounts')}}"><i class="fa fa-th-list"></i> <span>Accounts</span></a>
             </li>
-            
+            <!-- 
             {{-- Administrative --}}
             <li class="{{ Request::is('admin/administrative', 'admin/add_administrative','admin/update_administrative','admin/view_administrative/*','edit_administrative/*') ? "active" : "" }}">
                 <a href="{{url('admin/administrative')}}"><i class="fa fa-id-badge"></i> <span>Administrative</span></a>
@@ -61,7 +61,7 @@
             {{-- Contact Us --}}
             <li class="{{ Request::is('admin/contact', 'admin/add_contact','admin/update_contact','admin/edit_contact/*') ? "active" : "" }}">
                 <a href="{{url('admin/contact')}}"><i class="fa fa-id-card"></i> <span>Contact Us</span></a>
-            </li>
+            </li> -->
     
           {{--  <li class="treeview">
               <a href="#">

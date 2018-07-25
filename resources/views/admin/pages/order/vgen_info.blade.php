@@ -14,7 +14,7 @@
       <div class="panel-group">
     <div class="panel panel-default">
 <div class="pull-right">
-                  {{-- <a href="{{url('/add_order')}}" class="btn btn-primary ">Add Order</a> --}}
+                  {{-- <a href="{{url('/create_order')}}" class="btn btn-primary ">Add Order</a> --}}
                 </div>
       
       <div class="panel-heading">

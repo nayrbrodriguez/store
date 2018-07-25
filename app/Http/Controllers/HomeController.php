@@ -28,13 +28,13 @@ class HomeController extends Controller
        
         $products   =   DB::table('tb_product')->where('admin_id', Auth::user()->id)->get();
 
-        $barGraph   =   DB::table('tb_order')->get();
+        // $barGraph   =   DB::table('tb_order')->get();
         // $distinct   =   distinct($barGraph);
         // 
-        $year = $barGraph->created_at->year;
+        // $year = $barGraph->created_at->year;
  
-        return $barGraph;
-        // return view('admin.pages.banner.vgen_info',compact('products','barGraph'));
+        // return $barGraph;
+        return view('admin.pages.banner.vgen_info',compact('products'));
     }
 }
  
