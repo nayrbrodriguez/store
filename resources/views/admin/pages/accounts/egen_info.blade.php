@@ -24,16 +24,14 @@
          <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Sccounts List</th>
-                        
-                        {{-- <th width="15%"><center>Action</center></th> --}}
+                        <th>Accounts List</th>
                       </tr>
                     </thead>
                     <tbody>
           @foreach($accounts as $acc)
                       <tr>
                         {{-- <td>{!!$gen->title!!}</td> --}}
-            <td><a href="{{url('view_accounts', array($acc->id))}}" >{!!$acc->account!!}</a></td>
+            <td><a href="{{url('accounts', array($acc->id))}}" >{!!$acc->account!!}</a></td>
             {{-- <td>
               <a href="{{url('view_course_offering', array($acc->id))}}" class="btn btn-primary">View</a>
               <a href="{{url('edit_course_offering',array($acc->id))}}" class="btn btn-info">Edit</a>
@@ -59,7 +57,7 @@
         {{-- <h4>@yield('title')</h4> --}}
       </div>
       <div class="panel-body">
-        <form action="{{ url('update_accounts') }}" method="put">
+        <form action="{{ url('update_accounts') }}" method="post">
 
           <div class="form-group">
             <label for="account">Account Name</label>
@@ -68,16 +66,16 @@
           </div>
 
           <div class="form-group">
-            <label for="account">Password</label>
-            <input type="password" name="account" value="{!!$account->password!!}" class="form-control" id="myPassword">
+            <label for="username">Username/Email Address</label>
+            <input type="text" name="username" class="form-control" value="{!!$account->username!!}">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" value="{!!decrypt($account->password)!!}" class="form-control" id="myPassword">
             <input type="checkbox" onclick="myFunction()">Show Password
             <br><br>
           </div>
-          {{-- <div class="form-group">
-            <textarea id="summernote" name="summernote" class="form-control">
-              {!! $account->description !!}
-            </textarea>
-          </div> --}}
           <div class="form-group">
             <input type="submit" name="send" id="send" value="Update" class="btn btn-success">
             <a href="{{url('view_accounts',$account->id)}}" class="btn btn-danger">Back</a>

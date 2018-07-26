@@ -1,7 +1,7 @@
 @extends('admin.admin_template')
 
 @section('title')
-	Create accounts Offer
+	Create accounts
 @endsection
 
 
@@ -13,20 +13,25 @@
 				<h4>@yield('title')</h4>
 			</div>
 			<div class="panel-body">
-				<form action="{{ url('admin/create_accounts') }}" method="post">
+				<form action="{{ url('create_accounts') }}" method="post">
 					<div class="form-group">
-						<label for="title">Title</label>
-						<input type="text" name="title" class="form-control" value="{{old('title')}}">
+						<label for="account">Account Name</label>
+						<input type="text" name="account" class="form-control" value="{{old('account')}}">
 					</div>
 					<div class="form-group">
-						<label for="description">Content</label>
-						<textarea id="summernote" name="summernote" class="form-control" >
-							{{old('summernote')}}
-						</textarea>
+						<label for="username">Username/Email</label>
+						<input type="text" name="username" class="form-control" value="{{old('username')}}">
 					</div>
+					<div class="form-group">
+		            <label for="password">Password</label>
+		            <input type="password" name="password" value="{{old('password')}}" class="form-control" id="myPassword">
+		            <input type="checkbox" onclick="myFunction()">Show Password
+		            <br><br>
+		          </div>
+					
 					<div class="form-group">
 						<input type="submit" name="send" id="send" value="Publish" class="btn btn-success">
-						<a href="{{url('admin/accounts')}}" class="btn btn-danger">Back</a>
+						<a href="{{url('accounts')}}" class="btn btn-danger">Back</a>
 						{!! csrf_field() !!}
 
 					</div>
@@ -34,18 +39,16 @@
 			</div>
 		
 	</div>
-	<script type="text/javascript">
+	<script>
+	function myFunction() {
+	    var x = document.getElementById("myPassword");
+	    if (x.type === "password") {
+	        x.type = "text";
+	    } 
+	    else{
+	        x.type = "password";
+	    }
 
-        $(document).ready(function(argument) {
-            $('#summernote').summernote({
-                height: '200px',
-                placeholder:'Place your content here',
-                fontNames:['Arial','Arial Black','Khmer OS'],
-            })
-        })
-        $('#clear').on('click',function() {
-        $('#summernote').summernote('code',null);           
-        })
-
-    </script>
+	}
+	</script>
 @endsection

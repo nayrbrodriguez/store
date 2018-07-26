@@ -23,22 +23,13 @@
                     <thead>
                       <tr>
                         <th>Accounts List</th>
-                        
-                        {{-- <th width="15%"><center>Action</center></th> --}}
                       </tr>
                     </thead>
                     <tbody>
           @foreach($accounts as $acc)
                       <tr>
-                        {{-- <td>{!!$gen->title!!}</td> --}}
             <td><a href="{{url('view_accounts', array($acc->id))}}" >{!!$acc->account!!}</a></td>
-            {{-- <td>
-              <a href="{{url('view_course_offering', array($acc->id))}}" class="btn btn-primary">View</a>
-              <a href="{{url('edit_course_offering',array($acc->id))}}" class="btn btn-info">Edit</a>
-              <a href="{{url('delete_course_offering',array($acc->id))}}" class="btn btn-danger " type="button">Delete</a>
-              <a onclick="return confirm('Are you sure you want to delete {!!$acc->title!!}?')" href="{{url('delete_course_offering',array($acc->id))}}" class="btn btn-danger ">Delete</a>
-              
-            </td> --}}
+            
                       </tr>
                     @endforeach
                     </tbody>

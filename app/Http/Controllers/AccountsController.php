@@ -46,9 +46,9 @@ class AccountsController extends Controller
     	return view('admin.pages.accounts.egen_info', compact('account', 'accounts'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-    	$account = Accounts::findOrFail($id);
+    	$account = Accounts::findOrFail($request['id']);
     	$password = encrypt($request['password']);
     	$account->update([
     		'admin_id' => $request->user()->id,
@@ -56,6 +56,7 @@ class AccountsController extends Controller
     		'username' => $request['username'],
     		'password' => $password
     	]);
+    	// dd($account);
     	return redirect('/accounts');
     }
 

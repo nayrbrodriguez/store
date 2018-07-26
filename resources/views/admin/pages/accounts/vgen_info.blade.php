@@ -37,7 +37,7 @@
                       <tr>
                         {{-- <td>{!!$account->title!!}</td> --}}
             <td><a href="{{url('/accounts', array($account->id))}}" id="password">
-              {!!decrypt($account->password)!!}
+              {!!$account->account!!}
               <br>
             </a>
               

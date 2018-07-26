@@ -64,10 +64,10 @@ Route::get('pdf', 'PDFController@exportpdf');
 
 Route::get('/accounts', 'AccountsController@index');
 Route::get('/add_accounts', 'AccountsController@add');
-Route::get('/create_accounts', 'AccountsController@create');
+Route::post('/create_accounts', 'AccountsController@create');
 Route::get('/accounts/{id}', 'AccountsController@view');
 Route::get('/edit_accounts/{id}', 'AccountsController@edit');
-Route::put('/update_accounts/{id}', 'AccountsController@update');
+Route::post('/update_accounts/', 'AccountsController@update');
 });
 
 Route::get('/sample', 'OrderController@sample');
