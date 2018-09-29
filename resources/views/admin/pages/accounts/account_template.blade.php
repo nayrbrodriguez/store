@@ -18,7 +18,7 @@ accounts Content
         </div>
 
         <div class="panel-heading">
-          <h3>accounts</h3>
+          <h3>Accounts</h3>
           <div class="form-group">
             <form action="{{ url('accounts') }}" method="get">
             <input class="form-control" name="account" type="text" id="search" placeholder="Search"></input>

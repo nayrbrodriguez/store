@@ -1,58 +1,48 @@
 @extends('admin.admin_template')
 
 @section('title')
-  {{-- Update {!!$title->title!!} --}}
+{{-- Update {!!$title->title!!} --}}
 @endsection
-  
+
 
 @section('content')
 
 
 <div class="row">
-    <div class="col-md-6">
-      <div class="panel-group">
-    <div class="panel panel-default">
-    <div class="pull-right">
-                  <a href="{{url('add_accounts')}}" class="btn btn-primary ">Add account</a>
-                </div>
-      <div class="panel-heading"><h3>accounts</h3>
-      <div class="form-group">
-          <input class="form-control" type="text" id="search"  name="search" placeholder="Search"></input>
+  <div class="col-md-6">
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="pull-right">
+          <a href="{{url('add_accounts')}}" class="btn btn-primary ">Add account</a>
+        </div>
+        <div class="panel-heading"><h3>accounts</h3>
+          <div class="form-group">
+            <input class="form-control" type="text" id="search"  name="search" placeholder="Search"></input>
+          </div>
+        </div>
+        <div class="panel-body ">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Accounts List</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($accounts as $acc)
+              <tr>
+                <td><a href="{{url('accounts', array($acc->id))}}" >{!!$acc->account!!}</a></td>
+              </tr>
+              @endforeach
+            </tbody>
+
+          </table>
+
         </div>
       </div>
-      <div class="panel-body ">
-         <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>Accounts List</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-          @foreach($accounts as $acc)
-                      <tr>
-                        {{-- <td>{!!$gen->title!!}</td> --}}
-            <td><a href="{{url('accounts', array($acc->id))}}" >{!!$acc->account!!}</a></td>
-            {{-- <td>
-              <a href="{{url('view_course_offering', array($acc->id))}}" class="btn btn-primary">View</a>
-              <a href="{{url('edit_course_offering',array($acc->id))}}" class="btn btn-info">Edit</a>
-              <a href="{{url('delete_course_offering',array($acc->id))}}" class="btn btn-danger " type="button">Delete</a>
-              <a onclick="return confirm('Are you sure you want to delete {!!$acc->title!!}?')" href="{{url('delete_course_offering',array($acc->id))}}" class="btn btn-danger ">Delete</a>
-              
-            </td> --}}
-                      </tr>
-                    @endforeach
-                    </tbody>
-                    
-                  </table>
-
-      </div>
     </div>
-   
   </div>
-    </div>
-    <div class="col-md-6">
-
-   <div class="panel panel-default">
+  <div class="col-md-6">
+    <div class="panel panel-default">
       <div class="panel-heading">
         {{-- <h4>@yield('title')</h4> --}}
       </div>
@@ -85,25 +75,23 @@
         </form>
       </div>
     </div>
-       
-        
-    </div>
+  </div>
   </div>
 </div>
 
 <script>
-function myFunction() {
+  function myFunction() {
     var x = document.getElementById("myPassword");
     if (x.type === "password") {
-        x.type = "text";
-        x.value = "{!!decrypt($account->password)!!}";
+      x.type = "text";
+      x.value = "{!!decrypt($account->password)!!}";
     } 
     else{
-        x.type = "password";
-        x.value = "{!!$account->password!!}"
+      x.type = "password";
+      x.value = "{!!$account->password!!}"
     }
 
-}
+  }
 </script>
-  @include('admin.search.accounts')
+@include('admin.search.accounts')
 @endsection

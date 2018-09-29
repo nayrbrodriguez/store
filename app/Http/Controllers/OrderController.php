@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderRequests;
 
 use App;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 
@@ -12,19 +13,15 @@ use Illuminate\Validation\Validator;
 use User;
 use DB;
 use Auth;
+use App\Deductions;
 
 class OrderController extends Controller
 {
-    
-    
-
     public function index()
     {
     	$customers 	= DB::table('tb_customer')->where('admin_id', Auth::user()->id)->paginate(10);
 
-
     	return view('admin.pages.order.vgen_info',compact('customers'));
-
     }
 
 
@@ -32,12 +29,9 @@ class OrderController extends Controller
     {
         $customers  = DB::table('tb_customer')->where('admin_id', Auth::user()->id )->paginate(10);
     	
- 
     	$customer	= DB::table('tb_customer')->where('id', $id)->first();
 
     	$products 	= DB::table('tb_product')->where('prod_qty', '<>','0' )->where('admin_id', Auth::user()->id)->get();
-
-
 
     	$orders 	= DB::table('tb_order')
     					->join('tb_product', 'tb_order.prod_id','=','tb_product.id')
@@ -45,20 +39,19 @@ class OrderController extends Controller
     					->where('cust_id',$id)
     					->get();
 
-    	$total 			= DB::table('tb_order')
-    					->select('total_amt')
-    					->where('cust_id',$id)
-    					->where('status','pending')
-    					->sum('total_amt');
+        $deduction  = Deductions::select('total_amount')->where('user_id', $id)->sum('total_amount');
+        $deductionLogs = Deductions::whereUserId($id)->get();
 
-        //getting page of a result
-        // $totalRows      = DB::table('tb_customer')->count();
-        // $currentPage    = $customers->currentPage();
-        // $page           = ceil( $customer->id / count($totalRows) );
+	    $credit 	= DB::table('tb_order')
+					->select('total_amt')
+					->where('cust_id',$id)
+					->where('status','pending')
+					->sum('total_amt');
 
+        $total      = $credit - $deduction;
 
         if ($customer->admin_id == Auth::user()->id) {
-            return view('admin.pages.order.rgen_info', compact('customers','customer', 'orders', 'total', 'products'));
+            return view('admin.pages.order.rgen_info', compact('customers','customer', 'orders', 'total', 'products', 'deductionLogs'));
         } else {
             return view('errors.404');
         }
@@ -71,6 +64,10 @@ class OrderController extends Controller
 
 
     public function insert(OrderRequests $request){
+        if ($request['created_at'] == null) {
+            $request['created_at'] = Carbon::now()->format('Y-m-d');
+        }
+
     	$productID	= $request->prod_id;
     	$customerID	= $request->cust_id;
         $customers  = DB::table('tb_customer')->where('admin_id',Auth::user()->id)->paginate(10);
@@ -81,6 +78,7 @@ class OrderController extends Controller
             'prod_id'=>$request['prod_id'],
             'cust_id'=>$request['cust_id'],
             'qty'=>$request['qty'],
+            'created_at'=>$request['created_at'],
             'price'=>$total->price_for_sale,
             'total_amt'=>$total->price_for_sale * $request['qty']
             
@@ -209,6 +207,16 @@ class OrderController extends Controller
         }
     }
 
+    public function payment(Request $request, $id)
+    {
+        $payload = $request->only('total_amount', 'date_of_payment');
+        $payload['user_id'] = $id;
 
+        $payment = Deductions::create($payload);
+
+        $message = 'Minus with the amount of '.$payment->total_amount;
+
+        return redirect('/orders/'.$request->cust_id.'?page='.$request['currentPage'])->with('message', $message);
+    }
 
 }
