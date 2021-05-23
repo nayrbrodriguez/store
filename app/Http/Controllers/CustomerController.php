@@ -16,7 +16,7 @@ class CustomerController extends Controller
 
     public function sample()
     {
-         $display   =   DB::table('tb_customer')->last();
+         $display   =   DB::table('customers')->last();
 
         return redirect('view_customer/'.$display->id)->with('message', 'Successfully added '.$display->name.'!');
     }
@@ -31,7 +31,7 @@ class CustomerController extends Controller
         'status' => 'required||max:255',
         ]);
         
-        $display = DB::table('tb_customer')->insertGetId([
+        $display = DB::table('customers')->insertGetId([
         'name' => $request['name'],
         'address' => $request['address'],
         'contact' => $request['contact'],
@@ -40,27 +40,27 @@ class CustomerController extends Controller
         'status' => $request['status'] 
         ]);
 
-        $customer   =   DB::table('tb_customer')->where('id',$display)->first();
-        $last       =   DB::table('tb_customer')->where('admin_id', Auth::user()->id)->paginate(10);
+        $customer   =   DB::table('customers')->where('id',$display)->first();
+        $last       =   DB::table('customers')->where('admin_id', Auth::user()->id)->paginate(10);
 
         return redirect('view_customer/'. $customer->id . '?page=' . $last->lastPage() )->with('message', 'Successfully added '.$customer->name.'!');
     }
 
     public function search(Request $request){
-        $result = DB::table('tb_customer')->where('name',$request->name)->get();
+        $result = DB::table('customers')->where('name',$request->name)->get();
         
         return $result;
     }
 
     public function view(){
-        $data = DB::table('tb_customer')->where( 'admin_id', Auth::user()->id )->paginate(10);
+        $data = DB::table('customers')->where( 'admin_id', Auth::user()->id )->paginate(10);
 
         return view('admin.pages.customer.vgen_info', compact('data'));
     }
 
     public function read($id){
-        $title=DB::table('tb_customer')->where('id',$id)->first();
-        $data = DB::table('tb_customer')->where( 'admin_id', Auth::user()->id )->paginate(10);
+        $title=DB::table('customers')->where('id',$id)->first();
+        $data = DB::table('customers')->where( 'admin_id', Auth::user()->id )->paginate(10);
         if ($title->admin_id == Auth::user()->id) {
             return view('admin.pages.customer.rgen_info', compact('data','title'));
         }
@@ -71,13 +71,13 @@ class CustomerController extends Controller
     }
  
     public function delete($id){
-        DB::table('tb_customer')->where('id',$id)->delete();
+        DB::table('customers')->where('id',$id)->delete();
         return redirect('customer')->with('message', 'Successfully delete!');
     }
 
     public function edit($id){
-        $data = DB::table('tb_customer')->where('admin_id', Auth::user()->id)->paginate(10);
-        $title = DB::table('tb_customer')->where('id',$id)->first();
+        $data = DB::table('customers')->where('admin_id', Auth::user()->id)->paginate(10);
+        $title = DB::table('customers')->where('id',$id)->first();
         
         if ($title->admin_id == Auth::user()->id) {
             return view('admin.pages.customer.egen_info', compact('data','title'));
@@ -97,7 +97,7 @@ class CustomerController extends Controller
         'status'=>'required||max:255',
         ]);
 
-        DB::table('tb_customer')->where('id',$request['id'])->update([
+        DB::table('customers')->where('id',$request['id'])->update([
         'name'=>$request['name'],
         'address'=>$request['address'],
         'contact'=>$request['contact'],
@@ -105,8 +105,8 @@ class CustomerController extends Controller
         'status'=>$request['status']
         ]);
         
-        $data = DB::table('tb_customer')->where('admin_id', Auth::user()->id)->paginate(10);
-        $title=DB::table('tb_customer')->where('id',$request['id'])->first();
+        $data = DB::table('customers')->where('admin_id', Auth::user()->id)->paginate(10);
+        $title=DB::table('customers')->where('id',$request['id'])->first();
 
         return redirect('view_customer/'.$title->id.'?page='.$currentPage)->with('message','You have been successfully update the profile of '.$title->name);
     }

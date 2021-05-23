@@ -42,6 +42,7 @@
             <li class="{{ Request::is('accounts', 'admin/add_scholarship','admin/update_scholarship','admin/view_scholarship/*','admin/edit_scholarship/*') ? "active" : "" }}">
                 <a href="{{url('/accounts')}}"><i class="fa fa-th-list"></i> <span>Accounts</span></a>
             </li>
+
             <!-- 
             {{-- Administrative --}}
             <li class="{{ Request::is('admin/administrative', 'admin/add_administrative','admin/update_administrative','admin/view_administrative/*','edit_administrative/*') ? "active" : "" }}">

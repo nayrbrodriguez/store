@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
        
-        $products   =   DB::table('tb_product')->where('admin_id', Auth::user()->id)->get();
+        $products   =   DB::table('products')->where('admin_id', Auth::user()->id)->get();
 
         // $barGraph   =   DB::table('tb_order')->get();
         // $distinct   =   distinct($barGraph);

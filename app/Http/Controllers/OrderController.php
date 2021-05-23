@@ -19,7 +19,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-    	$customers 	= DB::table('tb_customer')->where('admin_id', Auth::user()->id)->paginate(10);
+    	$customers 	= DB::table('customers')->where('admin_id', Auth::user()->id)->paginate(10);
 
     	return view('admin.pages.order.vgen_info',compact('customers'));
     }
@@ -27,9 +27,9 @@ class OrderController extends Controller
 
     public function orders($id)
     {
-        $customers  = DB::table('tb_customer')->where('admin_id', Auth::user()->id )->paginate(10);
+        $customers  = DB::table('customers')->where('admin_id', Auth::user()->id )->paginate(10);
     	
-    	$customer	= DB::table('tb_customer')->where('id', $id)->first();
+    	$customer	= DB::table('customers')->where('id', $id)->first();
 
     	$products 	= DB::table('tb_product')->where('prod_qty', '<>','0' )->where('admin_id', Auth::user()->id)->get();
 
@@ -70,9 +70,9 @@ class OrderController extends Controller
 
     	$productID	= $request->prod_id;
     	$customerID	= $request->cust_id;
-        $customers  = DB::table('tb_customer')->where('admin_id',Auth::user()->id)->paginate(10);
+        $customers  = DB::table('customers')->where('admin_id',Auth::user()->id)->paginate(10);
     	$total 		= DB::table('tb_product')->where('id', $productID)->first();
-    	$mess 		= DB::table('tb_customer')->where('id', $customerID)->first();
+    	$mess 		= DB::table('customers')->where('id', $customerID)->first();
         
         $order = DB::table('tb_order')->insert([
             'prod_id'=>$request['prod_id'],
@@ -97,10 +97,10 @@ class OrderController extends Controller
     	$orderID	= DB::table('tb_order')->where('id', $ord_id)->first(); 
     	
     	//lists of all customers
-		$customers 	= DB::table('tb_customer')->where('admin_id',Auth::user()->id)->paginate(10); 
+		$customers 	= DB::table('customers')->where('admin_id',Auth::user()->id)->paginate(10); 
 
 		//input for creating orders for customer ID
-    	$customer	= DB::table('tb_customer')->where('id', $id)->first(); 
+    	$customer	= DB::table('customers')->where('id', $id)->first(); 
 
     	//getting all the products in tb_product that prod_qty has stocks
     	$products 	= DB::table('tb_product')->where('prod_qty', '<>','0' )->get(); 
@@ -141,7 +141,7 @@ class OrderController extends Controller
     public function update(Request $request)
     {   
         //getting customer
-        $customer = DB::table('tb_customer')->where('id',$request->cust_id)->first();
+        $customer = DB::table('customers')->where('id',$request->cust_id)->first();
 
         //getting product name 
         $product = DB::table('tb_product')->where('id',$request->prod_id)->first();
@@ -181,7 +181,7 @@ class OrderController extends Controller
     public function changeStatus(Request $request, $id, $ord_id, $currentPage)
     {   
         //getting customer
-        $customer   = DB::table('tb_customer')->where('id', $id)->first();
+        $customer   = DB::table('customers')->where('id', $id)->first();
 
         //getting order
         $order      = DB::table('tb_order')->where('id', $ord_id)->first();

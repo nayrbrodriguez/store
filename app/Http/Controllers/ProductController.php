@@ -34,7 +34,7 @@ class ProductController extends Controller
         
         ]);
         
-        DB::table('tb_product')->insert([
+        DB::table('products')->insert([
             'color'=>$request['color'],
             'prod_name'=>$request['prod_name'],
             'admin_id'=>$request['admin_id'],
@@ -59,7 +59,7 @@ class ProductController extends Controller
         if ($request->ajax()) {
             $output="";
             $url="/view_product/";
-            $department=DB::table('tb_product')->where('prod_name','LIKE','%'.$request->search.'%')->get();
+            $department=DB::table('products')->where('prod_name','LIKE','%'.$request->search.'%')->get();
             if ($department) {
                 foreach ($department as $key => $depart) {
                     $output.='<tr id="result">'.
@@ -74,7 +74,7 @@ class ProductController extends Controller
     }
 
     public function view(){
-         $data = DB::table('tb_product')->where('admin_id', Auth::user()->id)->paginate(10);
+         $data = DB::table('products')->where('admin_id', Auth::user()->id)->paginate(10);
         // $title=DB::table('tb_customer')->where('id',$id)->first();
         return view('admin.pages.product.vgen_info', compact('data'));
         // return $data;
@@ -83,8 +83,8 @@ class ProductController extends Controller
     }
 
     public function read($id){
-        $data = DB::table('tb_product')->where('admin_id', Auth::user()->id)->paginate(10);
-        $title=DB::table('tb_product')->where('id',$id)->first();
+        $data = DB::table('products')->where('admin_id', Auth::user()->id)->paginate(10);
+        $title=DB::table('products')->where('id',$id)->first();
 
         if ($title->admin_id == Auth::user()->id) {
 
@@ -100,13 +100,13 @@ class ProductController extends Controller
     }
 
     public function delete($id){
-        DB::table('tb_product')->where('id',$id)->delete();
+        DB::table('products')->where('id',$id)->delete();
         return redirect('product')->with('message', 'Successfully deleted!');
     }
 
     public function edit($id){
-        $data = DB::table('tb_product')->where('admin_id', Auth::user()->id)->paginate(10);
-        $title=DB::table('tb_product')->where('id',$id)->first();
+        $data = DB::table('products')->where('admin_id', Auth::user()->id)->paginate(10);
+        $title=DB::table('products')->where('id',$id)->first();
 
         if ($title->admin_id == Auth::user()->id) {
 
@@ -131,7 +131,7 @@ class ProductController extends Controller
         'price_for_credit'=>'required||max:255'
         ]);
 
-        DB::table('tb_product')->where('id',$request['id'])->update([
+        DB::table('products')->where('id',$request['id'])->update([
                 'prod_name'=>$request['prod_name'],
                 'prod_qty'=>$request['prod_qty'],
                 'orig_price'=>$request['orig_price'],
@@ -141,8 +141,8 @@ class ProductController extends Controller
                 
             ]);
         
-        $data = DB::table('tb_product')->where('admin_id', Auth::user()->id)->paginate(10);
-        $title = DB::table('tb_product')->where('id',$request['id'])->first();
+        $data = DB::table('products')->where('admin_id', Auth::user()->id)->paginate(10);
+        $title = DB::table('products')->where('id',$request['id'])->first();
 
         // Session::flash('message', 'This is a message!');
         return view('admin.pages.product.rgen_info', compact('data','title'));
